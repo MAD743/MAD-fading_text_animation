@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../theme/theme_provider.dart';
 import 'second_animation_screen.dart';
+import 'color_picker_screen.dart';
 
 class FadingTextScreen extends StatefulWidget {
   const FadingTextScreen({super.key});
@@ -33,14 +34,25 @@ class _FadingTextScreenState extends State<FadingTextScreen> {
                 : Icons.wb_sunny),
             onPressed: () => themeProvider.toggleTheme(),
           ),
+          IconButton(
+            icon: const Icon(Icons.color_lens),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ColorPickerScreen()),
+              );
+            },
+          ),
         ],
       ),
-      body: Center(
-        child: GestureDetector(
-          onTap: toggleVisibility,
+      body: GestureDetector(
+        onTap: toggleVisibility,
+        child: Center(
           child: AnimatedOpacity(
             opacity: _isVisible ? 1.0 : 0.0,
             duration: const Duration(seconds: 1),
+            curve: Curves.easeInOut,
             child: const Text(
               'Hello, Flutter!',
               style: TextStyle(fontSize: 24),

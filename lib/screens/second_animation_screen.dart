@@ -20,12 +20,13 @@ class _SecondAnimationScreenState extends State<SecondAnimationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Second Animation Screen')),
-      body: Center(
-        child: GestureDetector(
-          onTap: toggleVisibility,
+      body: GestureDetector(
+        onTap: toggleVisibility,
+        child: Center(
           child: AnimatedOpacity(
             opacity: _isVisible ? 1.0 : 0.0,
             duration: const Duration(seconds: 3), // Longer duration
+            curve: Curves.easeInOut,
             child: const Text(
               'Flutter Animations!',
               style: TextStyle(fontSize: 24),

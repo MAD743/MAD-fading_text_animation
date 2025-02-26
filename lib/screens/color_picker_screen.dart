@@ -34,14 +34,14 @@ class _ColorPickerScreenState extends State<ColorPickerScreen> {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text("Select Text Color"),
-                  content: ColorPicker(
+                  content: BlockPicker(
                     pickerColor: _textColor,
                     onColorChanged: changeColor,
                   ),
                   actions: [
                     ElevatedButton(
-                      child: const Text("Done"),
                       onPressed: () => Navigator.pop(context),
+                      child: const Text("Done"),
                     ),
                   ],
                 ),
