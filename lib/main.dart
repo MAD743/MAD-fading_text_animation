@@ -1,29 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'screens/fading_text_screen.dart';
-import 'theme/theme_provider.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      child: const MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: FadingTextAnimation(),
+    );
+  }
+}
+
+class FadingTextAnimation extends StatefulWidget {
+  @override
+  _FadingTextAnimationState createState() => _FadingTextAnimationState();
+}
+
+class _FadingTextAnimationState extends State<FadingTextAnimation> {
+  bool _isVisible = true;
+
+  void toggleVisibility() {
+    setState(() {
+      _isVisible = !_isVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Fading Text Animation',
-      theme: themeProvider.isDarkMode ? ThemeData.dark() : ThemeData.light(),
-      home: const FadingTextScreen(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Fading Text Animation'),
+      ),
+      body: Center(
+        child: AnimatedOpacity(
+          opacity: _isVisible ? 1.0 : 0.0,
+          duration: Duration(seconds: 1),
+          child: Text(
+            'Hello, Flutter!',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: toggleVisibility,
+        child: Icon(Icons.play_arrow),
+      ),
     );
   }
 }
